@@ -1,0 +1,17 @@
+{
+    "name": "Main.Gun",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e250890fe1dc3064e972b4be364547c9",
+        "GUID:7308df785c6dc9a4ca9ee214a84b4b98"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
