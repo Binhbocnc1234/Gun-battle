@@ -5,17 +5,15 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     // Start is called before the first frame update
-    public static Vector3 shotdiff = new Vector3(0, 0.2f, 0);
+    public static Vector3 shotdiff = new Vector3(-0.1f, 0.3f, 0);
     [HideInInspector] public Player player;
     [HideInInspector] public Bullet bullet;
     [HideInInspector] public AudioManager audioManager;
     public string gunName;
-    public float bulletDelay, reloadDelay;
+    public float bulletDelay, reloadDelay, inaccuracy;
     public Timer fireRate = new Timer(0); public Timer reloadTime = new Timer(0);
     [HideInInspector] public bool isReloadTime = false;
     public int magazineCapacity; [HideInInspector] public int remainingBullet; protected int bulletInMag;
-
-
     protected virtual void Start()
     {
         fireRate.totalTime = fireRate.curTime = bulletDelay; reloadTime.totalTime = reloadDelay;

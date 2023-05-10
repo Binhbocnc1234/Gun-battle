@@ -10,17 +10,17 @@ public class ControllerPvP : MonoBehaviour
     // Base fields
     protected static ControllerPvP _instance;
     public static ControllerPvP instance{get => _instance;}
-    public float camHeight, camWidth;
+    [HideInInspector] public float camHeight, camWidth;
     // Battle infomation
     public float gravity = 9.8f;
     public string defaultGun = "Colt 45";
     public int usedMap = 0, limitTime = 0; //limitTime in seconds
     public int objective = 5;
-    public int[] usedSkin = new int[2];
-    public string[] playerName = new string[2]{"teamA", "teamB"};
+    [HideInInspector] public int[] usedSkin = new int[2];
+    [HideInInspector] public string[] playerName = new string[2]{"teamA", "teamB"};
     [HideInInspector] public int roundPassed = 0;
     [HideInInspector] public int winner;
-    public int[] score = new int[2]{0, 0};
+    [HideInInspector] public int[] score = new int[2]{0, 0};
     //RoundInfo
     [HideInInspector] public Timer[] infoTimer = new Timer[]{new Timer(4), new Timer(4), new Timer(2)};
     [HideInInspector] public int activeGameState = -1;
@@ -35,7 +35,6 @@ public class ControllerPvP : MonoBehaviour
     }
     void Start()
     {
-        objective = 5;
         camHeight  = Camera.main.orthographicSize;
         camWidth = camHeight * Camera.main.aspect;
         RoundStart();
@@ -46,7 +45,6 @@ public class ControllerPvP : MonoBehaviour
     {
 
         ConditionToEndState();
-        // ConditionToRoundEnd();
     }
     public void RoundStart(){
         SetActiveInfo(0);

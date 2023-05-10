@@ -24,11 +24,21 @@ public class Portal : MonoBehaviour
         
     }
     void OnTriggerEnter2D(Collider2D other){
+        Bullet bullet = other.GetComponent<Bullet>();
         if (other.GetComponent<Player>() != null){
             Vector3 tmp = partner.transform.position;
             tmp += dir;
             other.transform.position = tmp;
             
+        }
+        else if (bullet != null){
+            Vector3 tmp = partner.transform.position;
+            tmp += dir;
+            other.transform.position = tmp;
+            bullet.portalPassLeft -= 1;
+            if (bullet.portalPassLeft < 0){
+                Destroy(bullet.gameObject);
+            }
         }
     }
     void Hiding(){

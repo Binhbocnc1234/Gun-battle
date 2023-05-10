@@ -12,10 +12,14 @@ public class Bullet : MonoBehaviour
     public float armorPen;
     public bool isReflect;
     public int strikeThroughLeft = 0;
+    [HideInInspector] public int portalPassLeft;
     [HideInInspector] public string team;
     [HideInInspector] public Entity owner;
 
     // Update is called once per frame
+    void Start(){
+        portalPassLeft = strikeThroughLeft + 1;
+    }
     void Update()
     {
         

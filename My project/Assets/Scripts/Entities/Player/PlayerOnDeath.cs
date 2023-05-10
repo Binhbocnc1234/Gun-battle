@@ -15,7 +15,6 @@ public class PlayerOnDeath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_pl.health <= 0 && _pl.isOnDeath == false){OnDeath();}
         if (_pl.isOnDeath && deathTimer.Count()){
             OnRevive();
         }
@@ -24,14 +23,6 @@ public class PlayerOnDeath : MonoBehaviour
             _pl.immuneRate = 0;
             _pl.isOnRevive = false;
         }
-    }
-    void OnDeath(){
-        _pl.isOnDeath = true;
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<BoxCollider2D>().enabled = false;
-        GetComponent<Rigidbody2D>().isKinematic = true;
-        _pl.gunContainer.gameObject.SetActive(false);
-
     }
     ///<sumary>
     ///After disappearing, Player respawns in random position, weapon is reseted to default, Player is immortal for a short time.
@@ -46,6 +37,6 @@ public class PlayerOnDeath : MonoBehaviour
         transform.position = ObjectHolder.instance.playerSpawnPosition.GetChild(posInd).position;
         _pl.immuneRate = 1;
         _pl.health = _pl.mainHealth;
-        _pl.SwitchGun(0);
+        _pl.SwitchGun(ControllerPvP.instance.defaultGun);
     }
 }

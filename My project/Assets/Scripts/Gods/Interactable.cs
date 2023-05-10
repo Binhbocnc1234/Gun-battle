@@ -5,7 +5,7 @@ using System;
 using Observer;
 using TMPro;
 
-public enum InteractableType{normal, gun, health, chest}
+public enum InteractableType{normal, gun, health, chest, armor}
 public enum Rarity{Common, UnCommon, Rare, VeryRare, Epic, Legendary, Mythical}
 public class Interactable : MonoBehaviour
 {

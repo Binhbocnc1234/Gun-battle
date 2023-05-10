@@ -26,11 +26,12 @@ public class BulletCollide : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other){
         Player playerCom = other.GetComponent<Player>();
-        Explode();
-        if (other.tag == "Wall"){ //The bullet collided with Wall
+        if (other.tag == "Wall"){
+            Explode();
             Destroy();
         }
         if (playerCom != null && playerCom.group != _bullet.team){
+            Explode();
             playerCom.GetDamage(_bullet.damage);
             if (_bullet.strikeThroughLeft == 0){Destroy();}
             else{_bullet.strikeThroughLeft -=1;}
@@ -39,15 +40,20 @@ public class BulletCollide : MonoBehaviour
     void Explode(){
         foreach(Transform obj in ObjectHolder.instance.playerContainer){
             Player pl = obj.GetComponent<Player>();
-            // Vector2.Vector2
-            if (pl.group != _bullet.team && Vector2.Distance(pl.transform.position, transform.position) <= explodeRadius){
-                pl.GetDamage(explodeDamage);
+            if (pl.group != _bullet.team){
+                if (Vector2.Distance(pl.transform.position, transform.position) <= explodeRadius){
+                    pl.GetDamage(explodeDamage);
+                }
             }
         }
     }
     public void Destroy(){
         Transform explodeObj = Instantiate(explodeAnim, transform.position, transform.rotation);
-        explodeObj.transform.localScale = this.transform.localScale;
+        if (transform.localScale.x < 0){
+            var localScale = explodeObj.localScale;
+            localScale.x *= -1;
+            explodeObj.localScale = localScale;
+        }
         explodeObj.gameObject.SetActive(true);
         Destroy(this.gameObject);
     }

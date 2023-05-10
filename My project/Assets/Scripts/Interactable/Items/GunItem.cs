@@ -5,6 +5,7 @@ using UnityEngine;
 public class GunItem : Item{
     
     public override void Trigger(Player pl){ 
+        audioManager.Play("PickUp");
         foreach(Transform child in ObjectHolder.instance.itemList){
             if (child.GetComponent<Item>().itemName == pl.gunCom.gunName){
                 var gunItemObj = Instantiate(child, transform.position, transform.rotation);

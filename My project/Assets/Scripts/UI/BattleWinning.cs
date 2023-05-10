@@ -14,6 +14,6 @@ public class BattleWinning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        winnerText.text  = $"The winner is {ControllerPvP.instance.winner}";
+        winnerText.text  = $"The winner is {ControllerPvP.instance.playerName[ControllerPvP.instance.winner]}";
     }
 }

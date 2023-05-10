@@ -63,24 +63,33 @@ public class Player : Entity
         if(index == 1){Flip();}
         distToGround = collider2D.bounds.extents.y;
         usedGunIndex = 0;
+        SwitchGun(ControllerPvP.instance.defaultGun);
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        if (gunContainer.selectedIndex == -1){
-            SwitchGun(0);
-        }
     }
-    public new void GetDamage(int amount){
+    public override bool GetDamage(int amount){
         SwitchAnim("Hurt");
-        if (base.GetDamage(amount)){
+        if (base.GetDamage(amount) && isOnDeath == false){
             ControllerPvP.instance.RoundEnd(1 - index);
+            OnDeath();
+            return true;
         }
+        return false;
     }
-    public new void GetHealth(int amount){
+    public override void GetHealth(int amount){
         base.GetHealth(amount);
+    }
+    void OnDeath(){
+        isOnDeath = true;
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().isKinematic = true;
+        gunContainer.gameObject.SetActive(false);
+
     }
     void OnTriggerEnter2D(Collider2D other){
         // Portal portalCom = other.GetComponent<Portal>();
@@ -138,6 +147,9 @@ public class Player : Entity
     public bool isGrounded(){
         Debug.DrawRay(transform.position, transform.position + Vector3.down*distToGround, Color.red, 1, false);
         return Physics2D.Raycast(transform.position, Vector3.down, distToGround);
+    }
+    public void Reset(){
+        
     }
     #if UNITY_EDITOR
     

@@ -39,7 +39,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
         else{
-            GameObject soundObj = Instantiate(s, transform);
+            GameObject soundObj = Instantiate(s, transform.position, transform.rotation);
             soundObj.SetActive(true);
             soundObj.GetComponent<AudioSource>().Play();
         }

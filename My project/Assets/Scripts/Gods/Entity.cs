@@ -6,16 +6,19 @@ public class Entity : MonoBehaviour{
     public string group;
     public string entityName;
     public int mainHealth;
+    public int armor;
+    public int virtualShield;
     [HideInInspector] public float immuneRate; //range from 0 to 1
     [HideInInspector] public int health;
+    // [HideInIns
     protected Animator animator;
-    public SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
     new protected Rigidbody2D rigidbody;
     new protected Collider2D collider2D;
     protected virtual void Awake(){
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        // spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         collider2D = GetComponent<Collider2D>();
         health = mainHealth;
     }
@@ -33,8 +36,8 @@ public class Entity : MonoBehaviour{
             spriteRenderer.material.color = Color.white;
         }
     }
-    public bool GetDamage(int amount){
-        health -= (int)(amount*(1 - immuneRate));
+    public virtual bool GetDamage(int amount){
+        health -= (int)(amount*(600.0f/(600.0f+armor))*(1 - immuneRate));
         if (health <= 0){
             health = 0;
             return true;
@@ -47,9 +50,6 @@ public class Entity : MonoBehaviour{
     }
     public virtual void SwitchAnim(string name = "Idle"){
         animator.Play(name);
-    }
-    protected void GetHurt(){
-
     }
     protected virtual void Destroy(){
         Destroy(this.gameObject);

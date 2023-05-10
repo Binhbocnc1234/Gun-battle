@@ -8,11 +8,12 @@ public class PlayerUI : MonoBehaviour
 {
     // Start is called before the first frame update
     public Player player;
-    public Scrollbar scrollbar;
+    public RectTransform healthFill;
     public TextMeshProUGUI healthText, bulletText;
+    float mainWidth;
     // private healthText
     void Start(){
-
+        mainWidth = healthFill.GetComponent<RectTransform>().sizeDelta.x;
     }
 
     // Update is called once per frame
@@ -22,10 +23,10 @@ public class PlayerUI : MonoBehaviour
         if (player != null){
             healthText.text = string.Format("HP: {0}/{1}", player.health, player.mainHealth);
             bulletText.text = string.Format("{0}/{1}", player.gunCom.remainingBullet, player.gunCom.magazineCapacity);
-            scrollbar.size = (float)player.health/ player.mainHealth;
+            healthFill.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, mainWidth*(((float)player.health)/player.mainHealth));
         }
         else{
-            
+            Debug.LogWarning($"There is no player attached to {this.name}");
         }
         
     }
