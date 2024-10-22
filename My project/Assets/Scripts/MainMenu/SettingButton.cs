@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class SwitchCanvas : MonoBehaviour
+public class SettingButton : MonoBehaviour
 {
     // Start is called before the first frame update
     public Canvas currentCanvas;

@@ -12,44 +12,36 @@ public class Player : Entity
 {
     //Indentify
     public int index;
-    //State
-    [HideInInspector] public bool isOnDeath = false, isOnRevive = false;
     //Equipments
     public int usedGunIndex;
-    public ListCom gunContainer; [HideInInspector] public Gun gunCom;
+    public ListCom gunContainer; 
+    public Gun gunCom;
     public Transform reloadAnim;
     [HideInInspector] public Interactable nearbyInteractable;
     [HideInInspector] public string usedSkin;
     //Physic and movement;
-    public float movingSpeed = 10;
+    public float movingSpeed = 7;
     protected float distToGround;
     [HideInInspector] public Vector2 moveDir;
     public float jumpMagnitude = 10;
     [HideInInspector] public bool isFacingRight = true;
-    
-    //Input
-    public PlayerInput playerInput;
-    public InputAction moveAction, shotAction, jumpAction, lootAction;
-    public InputActionMap inputActionMap;
+    //State
+    [HideInInspector] public bool isOnDeath = false, isOnRevive = false, isMoving;
+    private bool _isShooting;
+    [HideInInspector] public bool isShooting{
+        get{return _isShooting;}
+        set{
+            _isShooting = value;
+            if (value){gunCom.gameObject.SetActive(false);}
+            else{gunCom.gameObject.SetActive(true);}
+        }
+    }
+    public bool isJumping;
     // Start is called before the first frame update
     protected override void Awake(){
-        
         //Get references to other objects and components
         base.Awake();
         reloadAnim.gameObject.SetActive(false);
-        //Input
-        playerInput = new PlayerInput();
-        if (index == 1){
-            inputActionMap = playerInput.Player_2;
-        }
-        else if (index == 0){
-            inputActionMap = playerInput.Player;
-        }
-        moveAction = inputActionMap.FindAction("Move", true);
-        shotAction = inputActionMap.FindAction("Shot", true);
-        jumpAction = inputActionMap.FindAction("Jump", true);
-        lootAction = inputActionMap.FindAction("Loot", true);
-        inputActionMap.Enable();
         //Register events
         // this.RegisterListener(EventID.OnFiPlayerLoot, (param) => Loot());
         //Reset value
@@ -60,7 +52,7 @@ public class Player : Entity
     {
         base.Start();
         //Reset value
-        if(index == 1){Flip();}
+        if(index == 1){FaceLeft();}
         distToGround = collider2D.bounds.extents.y;
         usedGunIndex = 0;
         SwitchGun(ControllerPvP.instance.defaultGun);
@@ -70,6 +62,10 @@ public class Player : Entity
     protected override void Update()
     {
         base.Update();
+        if (nearbyInteractable != null){
+            nearbyInteractable.TriggerEnter(this);
+        }
+        isMoving = moveDir.magnitude > 0.1f;
     }
     public override bool GetDamage(int amount){
         SwitchAnim("Hurt");
@@ -105,7 +101,9 @@ public class Player : Entity
     void OnTriggerExit2D(Collider2D other){
         nearbyInteractable =  other.GetComponent<Interactable>();
         if (nearbyInteractable != null){
+            nearbyInteractable.TriggerExit(this);
             nearbyInteractable = null;
+
         }
     }
     public void Fire(){
@@ -118,19 +116,17 @@ public class Player : Entity
         if (nearbyInteractable == null){
             gunCom.StartReload();
         }
-        else{
-            nearbyInteractable.Trigger(this);
+        else if (nearbyInteractable.canInteract){
+            nearbyInteractable.Interact(this);
         }
         
     } 
-    public void Flip(){
-        isFacingRight = !isFacingRight;
-        Vector3 scale = transform.localScale;
-        if (scale.x== 1){
-            scale.x = -1;
-        }else{scale.x = 1;}
-        
-        transform.localScale = scale;
+    public void FaceRight(){
+        transform.localScale = new Vector3(1, 1, 1); // Face right
+    }
+
+    public void FaceLeft(){
+        transform.localScale = new Vector3(-1, 1, 1); // Face left
     }
     public void SwitchGun(string name){
         gunContainer.SwitchElement(name, tr => tr.GetComponent<Gun>().gunName);
@@ -147,9 +143,6 @@ public class Player : Entity
     public bool isGrounded(){
         Debug.DrawRay(transform.position, transform.position + Vector3.down*distToGround, Color.red, 1, false);
         return Physics2D.Raycast(transform.position, Vector3.down, distToGround);
-    }
-    public void Reset(){
-        
     }
     #if UNITY_EDITOR
     

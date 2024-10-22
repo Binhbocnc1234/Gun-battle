@@ -26,7 +26,8 @@ public class ChestSpawner : MonoBehaviour
             chestObj.gameObject.SetActive(true);
             Chest chest = chestObj.GetComponent<Chest>();
             Transform itemList = ObjectHolder.instance.itemList;
-            chest.item = itemList.GetChild(Random.Range(0, itemList.childCount)).GetComponent<Item>();
+            chest.item = itemList.GetChild(itemList.GetComponent<ListCom>().GetElementBasedOnChance
+            (i => i.GetComponent<Item>().appearanceChance)).GetComponent<Item>();
 
         }
     }

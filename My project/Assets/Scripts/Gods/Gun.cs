@@ -5,19 +5,22 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     // Start is called before the first frame update
-    public static Vector3 shotdiff = new Vector3(-0.1f, 0.3f, 0);
+    public static Vector3 shotdiff = new Vector3(-0.1f, 0.3f, 0); //Value represents accuracy of gun
+    public GunModel gunModel;
+    [HideInInspector] public int level = 0, maxLevel = 3;
     [HideInInspector] public Player player;
     [HideInInspector] public Bullet bullet;
     [HideInInspector] public AudioManager audioManager;
     public string gunName;
-    public float bulletDelay, reloadDelay, inaccuracy;
+    [HideInInspector] public float bulletDelay, reloadDelay, inaccuracy;
     public Timer fireRate = new Timer(0); public Timer reloadTime = new Timer(0);
     [HideInInspector] public bool isReloadTime = false;
-    public int magazineCapacity; [HideInInspector] public int remainingBullet; protected int bulletInMag;
+    [HideInInspector] public int magazineCapacity; [HideInInspector] public int remainingBullet; protected int bulletInMag;
+    [HideInInspector] public float shootingDirection;
     protected virtual void Start()
-    {
-        fireRate.totalTime = fireRate.curTime = bulletDelay; reloadTime.totalTime = reloadDelay;
-        remainingBullet = magazineCapacity;
+    {   
+        //Initialization for Gun
+        
         foreach(Transform child in transform){
             if (child.name == "Bullet"){
                 bullet = child.GetComponent<Bullet>();
@@ -28,17 +31,31 @@ public class Gun : MonoBehaviour
                 audioManager.gameObject.SetActive(true);
             }
         }
-        
+        //Copy values from SO to Gun Component
+
+        gunName = bullet.gunName = gunModel.gunName;
+        GetComponent<SpriteRenderer>().sprite = gunModel.textureInBattleField;
+        fireRate.totalTime = fireRate.curTime = gunModel.bulletDelay; 
+        reloadTime.totalTime = gunModel.reloadDelay;
+        inaccuracy = gunModel.inaccuracy;
+        magazineCapacity = gunModel.magazineCapacity;
+        remainingBullet = magazineCapacity;
+        bullet.damage = gunModel.damage;
+        bullet.armorPen = gunModel.armorPenetration;
+        bullet.movingSpeed = gunModel.bulletMovingSpeed;
         //ReloadAnim
         Vector3 temp = transform.position;
         temp.y -= 1.5f;
-        
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
+        // Debug.Log($"level : {level}, magazine : {magazineCapacity}");
         fireRate.Count(false);
+        fireRate.totalTime = gunModel.bulletDelay - gunModel.fireRateUp * level;
+        bullet.damage = gunModel.damage + gunModel.damageUp * level;
+        magazineCapacity = gunModel.magazineCapacity + gunModel.magazineCapacityUp * level;
         if (isReloadTime){
             if (reloadTime.Count(false)){
                 EndReload();
@@ -60,10 +77,29 @@ public class Gun : MonoBehaviour
         reloadTime.Reset();
         audioManager.Play("Reload");
     }
+    ///<summary>
+    ///Turn off reloading amination and reset remainingBullet
+    ///</summary>
     public virtual void EndReload(){
         // Debug.Log("Reload has finished");
         isReloadTime = false;
         player.reloadAnim.gameObject.SetActive(false);
         remainingBullet = magazineCapacity;
+    }
+    public void Reset(){
+        reloadTime.Reset();
+        fireRate.Reset();
+        remainingBullet = bulletInMag;
+    }
+    public void LevelUp(){
+        level++;
+        level = Mathf.Min(level, maxLevel);
+    }
+    public virtual string GetName(){
+        string i = "";
+        for (int j = 0; j < level ; ++j){
+            i = i + "I";
+        }
+        return gunName + " - " + i;
     }
 }

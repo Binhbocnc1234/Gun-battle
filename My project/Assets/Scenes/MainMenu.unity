@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -299,9 +299,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -662,7 +670,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 343335419
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -817,7 +827,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 714115534}
-        m_TargetAssemblyTypeName: SwitchCanvas, Main.Menu
+        m_TargetAssemblyTypeName: SettingButton, Main.Menu
         m_MethodName: MoveToAnotherCanvas
         m_Mode: 2
         m_Arguments:
@@ -875,7 +885,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 714115529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1053b330135df484bab46497af8d7f7e, type: 3}
+  m_Script: {fileID: 11500000, guid: cafa31d766898bf4b8555a67d3ec2ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentCanvas: {fileID: 1512122831}
@@ -1263,15 +1273,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1186587372}
     m_Modifications:
     - target: {fileID: 5371148206438318363, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_text
-      value: L
+      value: K
       objectReference: {fileID: 0}
     - target: {fileID: 5371148206769399898, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_text
-      value: K
+      value: J
       objectReference: {fileID: 0}
     - target: {fileID: 5371148206994229289, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1283,17 +1294,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371148207317714989, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_text
-      value: ':
-
-        ;'
+      value: L
       objectReference: {fileID: 0}
     - target: {fileID: 5371148207317714989, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_fontSize
-      value: 10.8
+      value: 15.32
       objectReference: {fileID: 0}
     - target: {fileID: 5371148207317714989, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: eda3fc937e81fa044a78eac0b7c9a767, type: 2}
+    - target: {fileID: 5371148207317714989, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_fontSizeBase
-      value: 10.8
+      value: 15.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371148207317714989, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6435915043371686069, guid: eda3fc937e81fa044a78eac0b7c9a767, type: 2}
+    - target: {fileID: 5371148207317714989, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5371148207657231367, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_Name
@@ -1385,17 +1406,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371148207949428594, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_text
-      value: '"
-
-        '''
+      value: /
       objectReference: {fileID: 0}
     - target: {fileID: 5371148207949428594, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_fontSize
-      value: 10.78
+      value: 15.85
       objectReference: {fileID: 0}
     - target: {fileID: 5371148207949428594, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_fontSizeBase
-      value: 10.78
+      value: 15.85
       objectReference: {fileID: 0}
     - target: {fileID: 5371148207966462701, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_text
@@ -1405,13 +1424,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371148208167388450, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_text
-      value: o
+      value: I
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371148208167388450, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d7676b8155c3fdf4ba17ee6333ee055b, type: 2}
+    - target: {fileID: 5371148208167388450, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3996676720981712474, guid: d7676b8155c3fdf4ba17ee6333ee055b, type: 2}
+    - target: {fileID: 5371148208167388450, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371148208167388450, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7247287600095880713, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5371148207657231480, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2142801592}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
 --- !u!1 &1352234202
 GameObject:
@@ -1560,7 +1601,7 @@ GameObject:
   - component: {fileID: 1428656665}
   - component: {fileID: 1428656664}
   - component: {fileID: 1428656663}
-  - component: {fileID: 1428656662}
+  - component: {fileID: 1428656667}
   m_Layer: 5
   m_Name: Button-ReturnToMain
   m_TagString: Untagged
@@ -1568,19 +1609,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1428656662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428656661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1053b330135df484bab46497af8d7f7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentCanvas: {fileID: 2067865802}
 --- !u!114 &1428656663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1625,8 +1653,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1428656662}
-        m_TargetAssemblyTypeName: SwitchCanvas, Main.Menu
+      - m_Target: {fileID: 1428656667}
+        m_TargetAssemblyTypeName: SettingButton, Main.Menu
         m_MethodName: MoveToAnotherCanvas
         m_Mode: 2
         m_Arguments:
@@ -1696,6 +1724,19 @@ RectTransform:
   m_AnchoredPosition: {x: 510.51, y: -315.3}
   m_SizeDelta: {x: 258.97, y: 89.05}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1428656667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428656661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cafa31d766898bf4b8555a67d3ec2ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCanvas: {fileID: 2067865802}
 --- !u!1 &1512122828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,7 +1813,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2292,7 +2335,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2399,6 +2444,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1186587372}
     m_Modifications:
     - target: {fileID: 5371148207657231367, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}
@@ -2490,4 +2536,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2db6b90cb0089be4d9ac95f6e18dc5e0, type: 3}

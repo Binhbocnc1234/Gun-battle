@@ -9,7 +9,8 @@ public class PlayerUI : MonoBehaviour
     // Start is called before the first frame update
     public Player player;
     public RectTransform healthFill;
-    public TextMeshProUGUI healthText, bulletText;
+    public TextMeshProUGUI healthText, bulletText, gunNameText;
+    public Image gunImage;
     float mainWidth;
     // private healthText
     void Start(){
@@ -21,6 +22,8 @@ public class PlayerUI : MonoBehaviour
     {
         // textObj.text
         if (player != null){
+            gunNameText.text = player.gunCom.GetName();
+            gunImage.sprite = player.gunCom.gunModel.model;
             healthText.text = string.Format("HP: {0}/{1}", player.health, player.mainHealth);
             bulletText.text = string.Format("{0}/{1}", player.gunCom.remainingBullet, player.gunCom.magazineCapacity);
             healthFill.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, mainWidth*(((float)player.health)/player.mainHealth));

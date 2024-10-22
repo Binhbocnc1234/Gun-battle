@@ -18,10 +18,16 @@ public class GunShooting : MonoBehaviour
     {
         
     }
+    ///<summary>
+    ///Instantiate a Bullet and make it fly in specified direction
+    ///</summary>
     public virtual void Shot(){
         if (m_gun.fireRate.isEnd && m_gun.reloadTime.isEnd){
             m_gun.fireRate.Reset();
-            Quaternion rotation = Quaternion.Euler(m_pl.transform.rotation.eulerAngles + (new Vector3(0,0, Random.Range(-m_gun.inaccuracy,+m_gun.inaccuracy))));
+            Vector3 angle = m_pl.transform.rotation.eulerAngles;
+            angle.z += m_gun.shootingDirection;
+            Quaternion rotation = Quaternion.Euler(m_pl.transform.rotation.eulerAngles + 
+            (new Vector3(0,0, Random.Range(-m_gun.inaccuracy,+m_gun.inaccuracy))));
             m_gun.SpawnBullet(m_pl.transform.position + m_pl.transform.rotation.x*Gun.shotdiff, rotation);
             if (m_gun.magazineCapacity != 0){
                 m_gun.remainingBullet--;

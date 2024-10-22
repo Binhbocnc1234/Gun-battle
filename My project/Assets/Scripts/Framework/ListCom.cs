@@ -51,6 +51,26 @@ public class ListCom : MonoBehaviour
         }
         if(index >= transform.childCount){Debug.LogWarning(string.Format("Cannot find element named {}", name));}
     }
+    //Return index of the choosen element
+    public int GetElementBasedOnChance(Func<Transform, int> func){
+        int total = 0, chance = 0, choosenNum = 0;
+        List<int> chanceLst = new List<int>(){0};
+        foreach(Transform child in transform){
+            chance = func(child);
+            chanceLst.Add(chanceLst[chanceLst.Count-1] + chance);
+            total += chance;
+        }
+        choosenNum = UnityEngine.Random.Range(0, total);
+        int ind = chanceLst.FindIndex(0, i => i >= choosenNum) - 1;
+        // for (int i = chanceLst.Count; i >= 0; --i){
+        //     if (choosenNum >= chanceLst[i]){
+        //         ind = i;
+        //     }
+        // }
+
+        // Debug.Log($"Total : {total}, choosenNum : {choosenNum}, index : {ind}");
+        return ind;
+    }
     #if UNITY_EDITOR
     [CustomEditor(typeof(ListCom))]
     public class ListComEditor : Editor{

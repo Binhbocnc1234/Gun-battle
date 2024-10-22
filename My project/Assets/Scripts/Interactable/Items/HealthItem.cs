@@ -5,7 +5,7 @@ using UnityEngine;
 public class HealthItem : Item
 {
     public int amount;
-    public override void Trigger(Player player){
+    public override void Interact(Player player){
         audioManager.Play("PickUp");
         player.GetHealth(amount);
         Destroy(this.gameObject);

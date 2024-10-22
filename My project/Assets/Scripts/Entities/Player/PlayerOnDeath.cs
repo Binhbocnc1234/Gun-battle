@@ -19,7 +19,6 @@ public class PlayerOnDeath : MonoBehaviour
             OnRevive();
         }
         if (_pl.isOnRevive && immuneTimer.Count()){
-            // Debug.Log("End of revival");
             _pl.immuneRate = 0;
             _pl.isOnRevive = false;
         }
@@ -37,6 +36,7 @@ public class PlayerOnDeath : MonoBehaviour
         transform.position = ObjectHolder.instance.playerSpawnPosition.GetChild(posInd).position;
         _pl.immuneRate = 1;
         _pl.health = _pl.mainHealth;
+        _pl.armor = 0;
         _pl.SwitchGun(ControllerPvP.instance.defaultGun);
     }
 }

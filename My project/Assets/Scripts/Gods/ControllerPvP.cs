@@ -78,7 +78,7 @@ public class ControllerPvP : MonoBehaviour
     public void BattleWinning(){
         SetActiveInfo((int)BattleState.BattleWinning);
         ObjectHolder.instance.playerContainer.GetChild(winner).GetComponent<Player>().immuneRate = 1 ;
-        CameraFollower camFollow = Camera.main.GetComponent<CameraFollower>();
+        SmoothCamera camFollow = Camera.main.GetComponent<SmoothCamera>();
     }
     public void SetActiveInfo(int index){
         foreach(Transform child in ObjectHolder.instance.battleStates){

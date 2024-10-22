@@ -5,11 +5,11 @@ using UnityEngine;
 public class Entity : MonoBehaviour{
     public string group;
     public string entityName;
-    public int mainHealth;
-    public int armor;
+    public int mainHealth;[HideInInspector] public int health;
+    public int mainArmor; [HideInInspector] public int armor;
     public int virtualShield;
     [HideInInspector] public float immuneRate; //range from 0 to 1
-    [HideInInspector] public int health;
+    
     // [HideInIns
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
@@ -54,6 +54,10 @@ public class Entity : MonoBehaviour{
     protected virtual void Destroy(){
         Destroy(this.gameObject);
     }
+    protected virtual void Reset(){
+        health = mainHealth;
+        armor = 0;
 
+    }
 
 }

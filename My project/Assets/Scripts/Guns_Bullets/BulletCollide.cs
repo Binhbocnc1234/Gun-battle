@@ -33,6 +33,7 @@ public class BulletCollide : MonoBehaviour
         if (playerCom != null && playerCom.group != _bullet.team){
             Explode();
             playerCom.GetDamage(_bullet.damage);
+            BloodSplashManager.Instance.CreateBloodSplash(other.transform, _bullet.owner.transform.position - other.transform.position);
             if (_bullet.strikeThroughLeft == 0){Destroy();}
             else{_bullet.strikeThroughLeft -=1;}
         }
@@ -43,6 +44,11 @@ public class BulletCollide : MonoBehaviour
             if (pl.group != _bullet.team){
                 if (Vector2.Distance(pl.transform.position, transform.position) <= explodeRadius){
                     pl.GetDamage(explodeDamage);
+                }
+            }
+            else{
+                if (Vector2.Distance(pl.transform.position, transform.position) <= explodeRadius){
+                    pl.GetDamage(explodeDamage/2);
                 }
             }
         }
