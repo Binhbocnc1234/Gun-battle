@@ -219,10 +219,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3505228129094767458}
-  - {fileID: 7376188461009917354}
   - {fileID: 357478698706805485}
-  - {fileID: 6752186787158986936}
   - {fileID: 4751961200214931748}
   - {fileID: 137536537284577427}
   m_Father: {fileID: 1531811977726127123}
@@ -266,7 +263,6 @@ Transform:
   m_Children:
   - {fileID: 1531811977150094872}
   - {fileID: 1659684630}
-  - {fileID: 5023036859795112136}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1531811977726127125
@@ -303,7 +299,9 @@ MonoBehaviour:
   isOnDeath: 0
   isOnRevive: 0
   isMoving: 0
-  isJumping: 0
+  isSitDown: 0
+  isGrounded: 1
+  canPerformDoubleJump: 0
 --- !u!114 &7413228764011849330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,7 +364,7 @@ MonoBehaviour:
     m_Flags: 0
   inputActionMap:
     m_Name: Input
-    m_Id: 2ad99711-85b2-4ae1-a108-65ce9e642141
+    m_Id: 9001aba3-55d3-4956-84ce-463819792083
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
@@ -408,10 +406,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1911041867
-  m_SortingLayer: -5
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c1cd84fdb23e52f459ccaf2bb7d9d863, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd4ad75f2d444e5489c6ee848fa47184, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -466,7 +464,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.020576954, y: 0.14460444}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -477,7 +475,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.453682, y: 2}
+  m_Size: {x: 1.0009851, y: 2.5704818}
   m_EdgeRadius: 0
 --- !u!50 &1531811977726127144
 Rigidbody2D:
@@ -494,7 +492,7 @@ Rigidbody2D:
   m_Mass: 4
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -556,7 +554,10 @@ Transform:
   m_LocalPosition: {x: -0.058, y: 0.103, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3505228129094767458}
+  - {fileID: 6752186787158986936}
+  - {fileID: 7376188461009917354}
   m_Father: {fileID: 1531811977150094872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8531511594311458654
@@ -637,11 +638,11 @@ Transform:
   m_GameObject: {fileID: 3533046644041928309}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.546, y: 0.346, z: 0}
+  m_LocalPosition: {x: 0.6040004, y: 0.24299996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1531811977150094872}
+  m_Father: {fileID: 357478698706805485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1757721085227116956
 SpriteRenderer:
@@ -683,7 +684,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1911041867
   m_SortingLayer: -5
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 1329983994, guid: e8c033e4791a3764a8b019632060595c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -805,11 +806,12 @@ Transform:
   m_GameObject: {fileID: 5008968603553760182}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.52, y: 0.35199985, z: 0}
+  m_LocalPosition: {x: -0.4619995, y: 0.24899976, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1531811977150094872}
+  m_Children:
+  - {fileID: 5023036859795112136}
+  m_Father: {fileID: 357478698706805485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7465940998441931582
 SpriteRenderer:
@@ -889,11 +891,11 @@ Transform:
   m_GameObject: {fileID: 7932484687590788172}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.068, y: 0.553, z: 0}
+  m_LocalPosition: {x: -0.009999841, y: 0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1531811977150094872}
+  m_Father: {fileID: 357478698706805485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3744125462009009435
 SpriteRenderer:
@@ -953,8 +955,12 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1531811977726127123}
+    m_TransformParent: {fileID: 6752186787158986936}
     m_Modifications:
+    - target: {fileID: 522456695179764278, guid: 4a7244a66e21a1b4892444604e4d8eb2, type: 3}
+      propertyPath: explodeAnim
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 623883209433173612, guid: 4a7244a66e21a1b4892444604e4d8eb2, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -1053,11 +1059,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2741936383085458470, guid: 4a7244a66e21a1b4892444604e4d8eb2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.17
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 2741936383085458470, guid: 4a7244a66e21a1b4892444604e4d8eb2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: 2741936383085458470, guid: 4a7244a66e21a1b4892444604e4d8eb2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1139,6 +1145,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7571776445143193393, guid: 4a7244a66e21a1b4892444604e4d8eb2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cf56c3a1d63e07d45b179ec153c4621f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

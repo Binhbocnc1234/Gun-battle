@@ -5,7 +5,15 @@ using UnityEngine.InputSystem;
 using Observer;
 
 
-
+/// <summary>
+/// A class to handle player input <br/>
+/// Phase 1 : Moving <br/>
+/// W to jump and double jump, S to interact, A and D to move left and right<br/>
+/// Phase 2: Shooting <br/>
+/// Change shooting direction: W and S to turn muzzle up and down, A and D to change facing direction <br/>
+/// Release bullet : F , hold F to shoot continously <br/>
+/// Double tap A or D to exit shooting phase<br/>
+/// </summary>
 public class PlayerInputHandle : MonoBehaviour
 {
     Player pl;
@@ -13,13 +21,15 @@ public class PlayerInputHandle : MonoBehaviour
     public InputAction moveAction, shotAction, jumpAction, lootAction;
     public InputActionMap inputActionMap;
     GunShooting gunShooting;
-    Timer jumpDelay = new Timer(0.4f);
+    // Timer jumpDelay = new Timer(0.4f);
     Timer holdingTimer = new Timer(0.3f);
     private bool isHoldingShootingKey;
     private float lastTapTime = 0f;
     private float doubleTapThreshold = 0.3f;  // Time window for double tap
+    private Animator animator;
     void Awake(){
         pl = GetComponent<Player>();
+        animator = GetComponent<Animator>();
         playerInput = new PlayerInput();
         if (pl.index == 1){
             inputActionMap = playerInput.Player_2;
@@ -27,16 +37,16 @@ public class PlayerInputHandle : MonoBehaviour
         else if (pl.index == 0){
             inputActionMap = playerInput.Player;
         }
-        moveAction = inputActionMap.FindAction("Move", true);
-        shotAction = inputActionMap.FindAction("Shot", true);
-        jumpAction = inputActionMap.FindAction("Jump", true);
-        lootAction = inputActionMap.FindAction("Loot", true);
+        moveAction = inputActionMap.FindAction("Move", true); //key A and D
+        shotAction = inputActionMap.FindAction("Shot", true); // key F
+        jumpAction = inputActionMap.FindAction("Jump", true); // key W
+        lootAction = inputActionMap.FindAction("Loot", true); // key S
         inputActionMap.Enable();
-        ExitShootingPhase();
+        EnterMovingPhase();
     }
     void Update(){
         if (ControllerPvP.instance.activeGameState == (int)BattleState.Start || pl.isOnDeath){return;}
-        jumpDelay.Count(false);
+        // jumpDelay.Count(false);
         if (pl.isShooting){
             
         }
@@ -63,6 +73,7 @@ public class PlayerInputHandle : MonoBehaviour
             HandleShootingMovement();
         }
         else{
+            animator.Play("Move");
             pl.moveDir = context.ReadValue<Vector2>();
             // Debug.Log(pl.moveDir);
             //Make the player rotate in the direction of movement
@@ -78,16 +89,18 @@ public class PlayerInputHandle : MonoBehaviour
     //Haven't used
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (jumpDelay.Count(false) && pl.isGrounded()){
-            jumpDelay.Reset();
-            pl.Jump();
-        }
+        pl.Jump();
     }
 
     public void OnLootOrSitDown(InputAction.CallbackContext context)
     {
-        if (context.performed && !pl.isShooting){
+        if (context.started){
+            
+            Debug.Log("Player loot");
             pl.Loot();
+        }
+        else if (context.canceled){
+
         }
     }
 
@@ -109,18 +122,22 @@ public class PlayerInputHandle : MonoBehaviour
         moveAction.performed -= OnMove;
         // moveAction.performed += HandleShootingMovement;
         jumpAction.started -= OnJump;
+        //Remove lootAction
         lootAction.canceled -= OnLootOrSitDown;
+        lootAction.started -= OnLootOrSitDown;
         Debug.Log("Entered Shooting Phase");
     }
-
-    private void ExitShootingPhase()
+    private void EnterMovingPhase()
     {
         pl.isShooting = false;
         shotAction.canceled += OnShoot;
         moveAction.performed += OnMove;
+        moveAction.canceled += OnMove;
         // moveAction.performed -= HandleShootingMovement;
-        jumpAction.started += OnJump;
+        jumpAction.canceled += OnJump;
+        //Remove lootAction
         lootAction.canceled += OnLootOrSitDown;
+        lootAction.started += OnLootOrSitDown;
         Debug.Log("Exited Shooting Phase");
     }
     private void HandleShootingMovement()
@@ -140,7 +157,7 @@ public class PlayerInputHandle : MonoBehaviour
             float currentTime = Time.time;
             if (currentTime - lastTapTime <= doubleTapThreshold)
             {
-                ExitShootingPhase();
+                EnterMovingPhase();
             }
             else
             {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public enum BattleState{Fighting = -1, Start = 0, BattleWinning = 1, End = 2};
+public enum Tag{Wall, Bullet, Player, Entity}
 public class ControllerPvP : MonoBehaviour
 {
     // Base fields

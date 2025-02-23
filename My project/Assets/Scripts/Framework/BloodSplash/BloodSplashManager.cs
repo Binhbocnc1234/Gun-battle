@@ -12,11 +12,21 @@ public class BloodSplashManager : Singleton<BloodSplashManager>{
         child.SetActive(true);
         BloodSplash bloodSplash = child.GetComponent<BloodSplash>();
         bloodSplash.target = target;
-        bloodSplash.mainDirection = mainDirection;
+        bloodSplash.SetDirection(mainDirection);
         bloodSplash.effectTimer.totalTime = timer;
         bloodSplash.particleDelay.totalTime = particleDelay;
         bloodSplash.force = force;
         child.transform.SetParent(transform);
+    }
+    void Start(){
+        bloodSplashPrefab.gameObject.SetActive(false);
+    }
+    void Update(){
+        if (Input.GetMouseButtonUp(0)){
+            Vector3 mousePosition = Input.mousePosition;
+            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 0));
+            CreateBloodSplash(this.transform, new Vector2(0, 1));
+        }
     }
 }
 [CustomEditor(typeof(BloodSplashManager))]

@@ -1,21 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PlayerInputHandl : MonoBehaviour
 {
-    // Movement parameters
+    //Player state
+    private bool isShooting = false;
+    private bool isJumping = false;
+    //Stats
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
-    public GameObject bulletPrefab;
-    public Transform bulletSpawnPoint;
-    
-    private Rigidbody2D rb;
-    private bool isShootingPhase = false;
-    private bool isJumping = false;
-    private Vector2 movementInput;
-    private Vector2 shootDirection = Vector2.up;  // Default shooting direction
     private float lastTapTime = 0f;
     private float doubleTapThreshold = 0.3f;  // Time window for double tap
+    //Link to other gameObjects
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    private Rigidbody2D rb;
+    private Vector2 movementInput;
+    private Vector2 shootDirection = Vector2.up;  // Default shooting direction
     private bool canMove = true;
 
     private void Awake()
@@ -26,7 +28,7 @@ public class PlayerInputHandl : MonoBehaviour
     // InputAction callbacks
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (isShootingPhase)
+        if (isShooting)
         {
             HandleShootingMovement(context);
         }
@@ -38,7 +40,7 @@ public class PlayerInputHandl : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && !isShootingPhase && !isJumping)
+        if (context.performed && !isShooting && !isJumping)
         {
             Jump();
         }
@@ -46,7 +48,7 @@ public class PlayerInputHandl : MonoBehaviour
 
     public void OnLootOrSitDown(InputAction.CallbackContext context)
     {
-        if (context.performed && !isShootingPhase)
+        if (context.performed && !isShooting)
         {
             SitOrLoot();
         }
@@ -56,7 +58,7 @@ public class PlayerInputHandl : MonoBehaviour
     {
         if (context.started)
         {
-            if (!isShootingPhase)
+            if (!isShooting)
             {
                 EnterShootingPhase();
             }
@@ -70,14 +72,14 @@ public class PlayerInputHandl : MonoBehaviour
 
     private void EnterShootingPhase()
     {
-        isShootingPhase = true;
+        isShooting = true;
         canMove = false;
         Debug.Log("Entered Shooting Phase");
     }
 
     private void ExitShootingPhase()
     {
-        isShootingPhase = false;
+        isShooting = false;
         canMove = true;
         Debug.Log("Exited Shooting Phase");
     }
@@ -146,7 +148,7 @@ public class PlayerInputHandl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isShootingPhase && canMove)
+        if (!isShooting && canMove)
         {
             rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y);
         }

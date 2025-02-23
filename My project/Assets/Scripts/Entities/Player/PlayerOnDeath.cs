@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// This class perform following actions when Player health is below zero: <br/>
+/// +Phase 1: Turn off these components : SpriteRenderer, RigidBody <br/>
+/// +Phase 2: Player gets temporary immunity effect: Player can't be damaged and turn yellow
+/// </summary>
 [RequireComponent(typeof(Player))]
 public class PlayerOnDeath : MonoBehaviour
 {
@@ -23,6 +29,7 @@ public class PlayerOnDeath : MonoBehaviour
             _pl.isOnRevive = false;
         }
     }
+    // OnDealth() : from Player
     ///<sumary>
     ///After disappearing, Player respawns in random position, weapon is reseted to default, Player is immortal for a short time.
     ///<sumary>
@@ -38,5 +45,12 @@ public class PlayerOnDeath : MonoBehaviour
         _pl.health = _pl.mainHealth;
         _pl.armor = 0;
         _pl.SwitchGun(ControllerPvP.instance.defaultGun);
+    }
+    void OnDeath(){
+        _pl.isOnDeath = true;
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().isKinematic = true;
+        _pl.gunContainer.gameObject.SetActive(false);
     }
 }

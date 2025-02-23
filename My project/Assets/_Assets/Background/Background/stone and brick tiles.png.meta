@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -111,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -528,14 +534,9 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 4, y: 10}
-        - {x: 4, y: 3}
-        - {x: -4, y: 3}
-        - {x: -4, y: -4}
-        - {x: -12, y: -4}
-        - {x: -12, y: -12}
+      - - {x: -12, y: -12}
         - {x: 12, y: -12}
-        - {x: 12, y: 10}
+        - {x: 12, y: 12}
       tessellationDetail: 0
       bones: []
       spriteID: db87243f2ed3b62498556f522a0b7d03
@@ -842,42 +843,41 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      stone and brick tiles_1: 731335019
-      stone and brick tiles_22: 1213148493
-      stone and brick tiles_2: -37926303
-      stone and brick tiles_9: 26336745
-      stone and brick tiles_12: 328327830
-      stone and brick tiles_11: -1261826732
-      stone and brick tiles_26: 296389759
-      stone and brick tiles_5: 1314986409
-      stone and brick tiles_17: -2046603944
-      stone and brick tiles_3: -1899871047
-      stone and brick tiles_7: 765346844
-      stone and brick tiles_28: 1158538609
       stone and brick tiles_0: 1568032641
-      stone and brick tiles_21: -1797142424
+      stone and brick tiles_1: 731335019
       stone and brick tiles_10: 1290435419
-      stone and brick tiles_16: -2008882795
-      stone and brick tiles_8: -1087843866
-      stone and brick tiles_18: -782237215
-      stone and brick tiles_30: 2147411107
-      stone and brick tiles_15: -520958192
-      stone and brick tiles_25: 1744336920
-      stone and brick tiles_31: -292717263
-      stone and brick tiles_23: -1892242269
+      stone and brick tiles_11: -1261826732
+      stone and brick tiles_12: 328327830
       stone and brick tiles_13: 1990871140
-      stone and brick tiles_29: -1607670454
       stone and brick tiles_14: -1518937323
-      stone and brick tiles_24: 1995270281
-      stone and brick tiles_4: -602573972
-      stone and brick tiles_20: 1905439653
-      stone and brick tiles_27: -976589676
-      stone and brick tiles_6: -734418941
+      stone and brick tiles_15: -520958192
+      stone and brick tiles_16: -2008882795
+      stone and brick tiles_17: -2046603944
+      stone and brick tiles_18: -782237215
       stone and brick tiles_19: 888609436
+      stone and brick tiles_2: -37926303
+      stone and brick tiles_20: 1905439653
+      stone and brick tiles_21: -1797142424
+      stone and brick tiles_22: 1213148493
+      stone and brick tiles_23: -1892242269
+      stone and brick tiles_24: 1995270281
+      stone and brick tiles_25: 1744336920
+      stone and brick tiles_26: 296389759
+      stone and brick tiles_27: -976589676
+      stone and brick tiles_28: 1158538609
+      stone and brick tiles_29: -1607670454
+      stone and brick tiles_3: -1899871047
+      stone and brick tiles_30: 2147411107
+      stone and brick tiles_31: -292717263
       stone and brick tiles_32: 467191053
-  spritePackingTag: 
+      stone and brick tiles_4: -602573972
+      stone and brick tiles_5: 1314986409
+      stone and brick tiles_6: -734418941
+      stone and brick tiles_7: 765346844
+      stone and brick tiles_8: -1087843866
+      stone and brick tiles_9: 26336745
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

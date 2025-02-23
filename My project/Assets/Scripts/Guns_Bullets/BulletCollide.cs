@@ -30,10 +30,13 @@ public class BulletCollide : MonoBehaviour
             Explode();
             Destroy();
         }
-        if (playerCom != null && playerCom.group != _bullet.team){
+        else if (playerCom != null && playerCom.group != _bullet.team){
             Explode();
+            //Create blood effect
+            Vector3 dir = _bullet.owner.transform.position - this.transform.position;
+            BloodSplashManager.Instance.CreateBloodSplash(other.transform, dir);
+            
             playerCom.GetDamage(_bullet.damage);
-            BloodSplashManager.Instance.CreateBloodSplash(other.transform, _bullet.owner.transform.position - other.transform.position);
             if (_bullet.strikeThroughLeft == 0){Destroy();}
             else{_bullet.strikeThroughLeft -=1;}
         }

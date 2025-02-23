@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using Observer;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class Player : Entity
+
+public enum MovementState{
+    Move, //0: player is pressing moving key: A and D
+    Jump, //1: : player is jumping but aready performed double jump
+    DoubleJump, //2: player can perform another jump
+    Climb,
+    None
+}
+public partial class Player : Entity
 {
     //Indentify
     public int index;
@@ -25,25 +30,9 @@ public class Player : Entity
     [HideInInspector] public Vector2 moveDir;
     public float jumpMagnitude = 10;
     [HideInInspector] public bool isFacingRight = true;
-    //State
-    [HideInInspector] public bool isOnDeath = false, isOnRevive = false, isMoving;
-    private bool _isShooting;
-    [HideInInspector] public bool isShooting{
-        get{return _isShooting;}
-        set{
-            _isShooting = value;
-            if (value){gunCom.gameObject.SetActive(false);}
-            else{gunCom.gameObject.SetActive(true);}
-        }
-    }
-    public bool isJumping;
-    // Start is called before the first frame update
     protected override void Awake(){
-        //Get references to other objects and components
         base.Awake();
         reloadAnim.gameObject.SetActive(false);
-        //Register events
-        // this.RegisterListener(EventID.OnFiPlayerLoot, (param) => Loot());
         //Reset value
         distToGround = collider2D.bounds.extents.y;
         SwitchGun(0);
@@ -66,6 +55,7 @@ public class Player : Entity
             nearbyInteractable.TriggerEnter(this);
         }
         isMoving = moveDir.magnitude > 0.1f;
+        HandlingAnimator();
     }
     public override bool GetDamage(int amount){
         SwitchAnim("Hurt");
@@ -85,10 +75,8 @@ public class Player : Entity
         GetComponent<BoxCollider2D>().enabled = false;
         GetComponent<Rigidbody2D>().isKinematic = true;
         gunContainer.gameObject.SetActive(false);
-
     }
     void OnTriggerEnter2D(Collider2D other){
-        // Portal portalCom = other.GetComponent<Portal>();
         Bullet bullet = other.GetComponent<Bullet>();
         Interactable inter = other.GetComponent<Interactable>();
         if (inter != null && inter.canInteract){
@@ -96,6 +84,11 @@ public class Player : Entity
         }
         else if(bullet != null){
             
+        }
+
+        //Collide with Wall
+        if (other.transform.CompareTag("Wall")){
+            isJumping = false;
         }
     }
     void OnTriggerExit2D(Collider2D other){
@@ -110,7 +103,15 @@ public class Player : Entity
         
     }
     public void Jump(){
-        rigidbody.AddForce(new Vector2(0, jumpMagnitude));
+        if (!isJumping && isGrounded){
+            isJumping = true;
+            rigidbody.AddForce(new Vector2(0, jumpMagnitude));
+        }
+        else if (isJumping && canPerformDoubleJump){
+            rigidbody.velocity = Vector2.zero;
+            rigidbody.AddForce(new Vector2(0, jumpMagnitude));
+            canPerformDoubleJump = false;
+        }
     }
     public void Loot(){
         if (nearbyInteractable == null){
@@ -139,10 +140,6 @@ public class Player : Entity
         usedGunIndex = ind;
         gunCom = gunContainer.selectedObj.GetComponent<Gun>();
         gunCom.player = this;
-    }
-    public bool isGrounded(){
-        Debug.DrawRay(transform.position, transform.position + Vector3.down*distToGround, Color.red, 1, false);
-        return Physics2D.Raycast(transform.position, Vector3.down, distToGround);
     }
     #if UNITY_EDITOR
     
