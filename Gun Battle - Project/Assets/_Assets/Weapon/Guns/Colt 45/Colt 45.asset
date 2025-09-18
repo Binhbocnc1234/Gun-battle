@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5be17ebfe46e7c4789c9869f47dac32, type: 3}
+  m_Name: Colt 45
+  m_EditorClassIdentifier: 
+  gunName: Colt 45
+  gunType: 5
+  model: {fileID: 21300000, guid: 274eedf6ae4f69f4ebc2f98cfd7c048b, type: 3}
+  textureInBattleField: {fileID: 21300000, guid: 274eedf6ae4f69f4ebc2f98cfd7c048b, type: 3}
+  bulletDelay: 0.5
+  reloadDelay: 2
+  inaccuracy: 4
+  magazineCapacity: 5
+  damage: 120
+  bulletMovingSpeed: 70
+  armorPenetration: 0
+  explodeDamage: 0
+  explodeRadius: 0
+  damageUp: 12
+  fireRateUp: 0
+  magazineCapacityUp: 0

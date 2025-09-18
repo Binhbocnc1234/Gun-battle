@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class PlayerUI : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public Player player;
+    public RectTransform healthFill;
+    public TextMeshProUGUI healthText, bulletText, gunNameText;
+    public Image gunImage;
+    float mainWidth;
+    // private healthText
+    void Start(){
+        mainWidth = healthFill.GetComponent<RectTransform>().sizeDelta.x;
+    }
+
+    // Update is called once per frame
+    public void UpdateHealth(int health, int mainHealth)
+    {
+        // textObj.text
+        if (player != null){
+            // gunNameText.text = player.gunCom.GetName();
+            // gunImage.sprite = player.gunCom.gunModel.model;
+            healthText.text = string.Format("HP: {0}/{1}", player.health, player.mainHealth);
+            // bulletText.text = string.Format("{0}/{1}", player.gunCom.remainingBullet, player.gunCom.magazineCapacity);
+            healthFill.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, mainWidth*(((float)player.health)/player.mainHealth));
+        }
+        else{
+            Debug.LogError($"There is no player attached to {this.name}");
+        }
+        
+    }
+    public void UpdateGun(string gunName, int remainingBullet, int magazineCapacity, Sprite gunModel)
+    {
+        gunNameText.text = gunName;
+        gunImage.sprite = gunModel;
+        bulletText.text = string.Format("{0}/{1}", remainingBullet, magazineCapacity);
+    }
+    
+}

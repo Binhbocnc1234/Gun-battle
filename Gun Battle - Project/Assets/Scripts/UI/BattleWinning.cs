@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+public class BattleWinning : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public TextMeshProUGUI winnerText;
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // winnerText.text  = $"The winner is {ControllerPvP.instance.playerName[ControllerPvP.instance.winner]}";
+    }
+    void UpdateWinner(string winner)
+    {
+        winnerText.text = $"The winner is {winner}";
+    }
+}

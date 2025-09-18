@@ -1,0 +1,20 @@
+{
+    "name": "Main.God",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:7308df785c6dc9a4ca9ee214a84b4b98",
+        "GUID:b09dc18012e182f4b80e3dff33978e82",
+        "GUID:7b44a0c95c6d30a48a1ccb5d6479faa8",
+        "GUID:83cf22cfc3a9a6e4ab1d4688a49c67ba"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
